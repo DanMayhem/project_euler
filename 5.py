@@ -14,4 +14,5 @@ def lcm(a, b):
 			return i
 	return a*b
 
-print(reduce(lcm, range(1,21)))
+if __name__ == '__main__':
+	print(reduce(lcm, range(1,21)))

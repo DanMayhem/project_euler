@@ -19,6 +19,8 @@ def square(x):
 def sum(x, y):
 	return x+y
 
-s = range(1,101)
+if __name__=="__main__":
+	s = range(1,101)
 
-print(square(reduce(sum,s))-reduce(sum,map(square,s)))
+	print(square(reduce(sum,s))-reduce(sum,map(square,s)))
+	

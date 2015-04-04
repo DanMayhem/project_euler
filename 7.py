@@ -29,6 +29,6 @@ class NthPrime:
 		self.p.append(self.i)
 		return self.i
 
-
-print(list(NthPrime(10001))[-1])
+if __name__=='__main__':
+	print(list(NthPrime(10001))[-1])
 

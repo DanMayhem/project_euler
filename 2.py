@@ -31,4 +31,5 @@ class Fib():
 		return r
 
 
-print(reduce(lambda x, y: x+y, filter(lambda i: i%2==0,Fib(4000000))))
+if __name__=='__main__':
+	print(reduce(lambda x, y: x+y, filter(lambda i: i%2==0,Fib(4000000))))

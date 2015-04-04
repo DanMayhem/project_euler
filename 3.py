@@ -27,5 +27,7 @@ class PrimeFactors():
 				return i
 			i = i+1
 
-print(max(PrimeFactors(600851475143)))
+
+if __name__=='__main__':
+	print(max(PrimeFactors(600851475143)))
 
