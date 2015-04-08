@@ -18,12 +18,36 @@ Find the value of d < 1000 for which 1/d contains the longest recurring cycle in
 
 from math import floor
 
+def find_cycle_len(d):
+	remainders = {}
+	#find initial remainder
+	i=1
+	while i < d:
+		i*=10
+	r = i%d
+	while r != 0:
+		i=r
+		while i<d:
+			i*=10
+		s = i%d
+		remainders[r]=s
+		r=s
+		if s in remainders:
+			#we've found a loop
+			i=1
+			while remainders[s] != r:
+				i+=1
+				s = remainders[s]
+			return i
+	return 0
 
 if __name__=="__main__":
 	d = 0
 	l = 0
-	for i in range(2,1000):
-		if 1000%i != 0:
-			for j in range(1,i):
-				
+	for i in range(2,1000):		
+		x  = find_cycle_len(i)
+		if x>l:
+			l=x
+			d=i
 	print(d)
+	print(find_cycle_len(d))
