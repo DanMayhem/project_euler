@@ -15,57 +15,50 @@ It is interesting to note that the odd squares lie along the bottom right diagon
 If one complete new layer is wrapped around the spiral above, a square spiral with side length 9 will be formed. If this process is continued, what is the side length of the square spiral for which the ratio of primes along both diagonals first falls below 10%?
 """
 
-class NumberSpiral:
-	def __init__(self, size,):
-		self.size = size
-		self.spiral = [[None for i in range(size)] for i in range(size)]
-		self._fill_sprial()
+from functools import lru_cache
+from math import floor, sqrt
 
-	def expand(self):
-		self.size += 2
-		for row in self.sprial:
-			row.insert(0,None)
-			row.append(None)
-		self.sprial.insert(0,[None for i in range(self.size)])
-		self.spiral.append([None for i in range(self.size)])
-		self._fill_spiral()
+def nw_diags(n):
+	for i in range(3, n+1, 2):
+		yield i*i - 2*i + 2
 
-		
-	def _fill_spiral(self):
-		n = self.size*self.size - 1
-		r = self.size-1
-		c = self.size-1
-		d = "left"
-		self.spiral[r][c]=self.size*self.size
-		while n>0:
-			if d=="left":
-				if (c>0) and (self.spiral[r][c-1] is None):
-					c-=1
-					self.spiral[r][c]=n
-					n-=1
-				else:
-					d="up"
-			elif d=="down":
-				if (r<size-1) and (self.spiral[r+1][c] is None):
-					r+=1
-					self.spiral[r][c]=n
-					n-=1
-				else:
-					d="left"
-			elif d=="right":
-				if (c<size-1) and (self.spiral[r][c+1] is None):
-					c+=1
-					self.spiral[r][c]=n
-					n-=1
-				else:
-					d="down"
-			elif d=="up":
-				if (r>0) and (self.spiral[r-1][c] is None):
-					r-=1
-					self.spiral[r][c]=n
-					n-=1
-				else:
-					d="right"
 
-	def get(self, r,c):
-		return self.spiral[r][c]
+def sw_diags(n):
+	for i in range(3,n+1,2):
+		yield i*(i-1)+1
+
+
+def se_diags(n):
+	for i in range(1,n+1,2):
+		yield i*i
+
+def ne_diags(n):
+	for i in range(3, n+1, 2):
+		yield (i-2)**2 + i - 1
+
+@lru_cache(maxsize=None)
+def is_prime(n):
+	if n < 2:
+		return False
+	for i in range(2,floor(sqrt(n))+1):
+		if n%i==0:
+			return False
+	return True
+
+if __name__=="__main__":
+	diags = set([1])
+	prime_count = 0
+	diags_count = 1
+	for i in range(3, 100001, 2):
+		if is_prime(i*i -2*i +2):
+			prime_count += 1
+		if is_prime(i*(i-1)+1):
+			prime_count += 1
+		if is_prime((i-2)**2 + i - 1):
+			prime_count += 1
+		diags_count += 4
+		prime_pcnt = prime_count / diags_count
+		print("{0}: {1}".format(i, prime_pcnt))
+		if prime_pcnt <= .1:
+			exit()
+
