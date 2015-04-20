@@ -65,3 +65,21 @@ def prime_factors(n):
 	return factors
 
 
+#fibonacci
+def fib(max=None):
+	a = 0
+	b = 1
+	while (max is None) or (b < max):
+		yield b
+		c = a + b
+		a = b
+		b = c
+
+#pandigital numbers
+def is_pandigital(x):
+	s = list(str(x))
+	s.sort()
+	for i in range(len(s)):
+		if str(i+1) != s[i]:
+			return False
+	return True
