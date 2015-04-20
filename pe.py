@@ -7,6 +7,7 @@ from math import factorial, sqrt
 from fractions import gcd
 from functools import reduce
 from operator import mul
+from itertools import combinations
 
 #misc
 def product(l):
@@ -82,4 +83,28 @@ def is_pandigital(x):
 	for i in range(len(s)):
 		if str(i+1) != s[i]:
 			return False
+	return True
+
+#"special" sets
+
+def is_special_pair(b, c):
+	def s(a):
+		return sum(a)
+	if len(b) == len(c):
+		return s(b) != s(c)
+	if len(b) < len(c):
+		b, c = c, b
+	if s(b) <= s(c):
+		return False
+	return True
+
+def is_special_set(a):
+	for i in range(1,len(a)//2+1):
+		for b in combinations(a, i):
+			b = set(b)
+			x = a-b
+			for j in range(1,len(x)+1):
+				for c in combinations(x, j):
+					if not(is_special_pair(b, c)):
+						return False
 	return True
