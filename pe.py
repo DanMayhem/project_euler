@@ -3,7 +3,7 @@
 commonly used methods
 """
 
-from math import factorial, sqrt
+from math import factorial, sqrt, floor
 from fractions import gcd
 from functools import reduce
 from operator import mul
@@ -64,6 +64,14 @@ def prime_factors(n):
 				break
 			i += 1
 	return factors
+
+def is_prime(n):
+	if n < 2:
+		return False
+	for i in range(2,floor(sqrt(n))+1):
+		if n%i==0:
+			return False
+	return True
 
 
 #fibonacci
