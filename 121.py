@@ -9,3 +9,30 @@ If the game is played for four turns, the probability of a player winning is exa
 Find the maximum prize fund that should be allocated to a single game in which fifteen turns are played.
 """
 
+from itertools import product
+from fractions import Fraction
+
+turns = 15
+
+odds_per_turn = [(i+2) for i in range(turns)]
+print(odds_per_turn)
+
+win_ways = 0
+lose_ways = 0
+
+for game in product("RB",repeat=turns):
+	ways = 1
+	for i in range(len(game)):
+		if game[i]=="R":
+			ways *= odds_per_turn[i]-1
+		else:
+			ways *= 1
+	if game.count("B")>game.count("R"):
+		win_ways += ways
+		print(["W", game, ways])
+	else:
+		lose_ways += ways
+		print(["L", game, ways])
+		
+
+print([win_ways, lose_ways, win_ways + lose_ways, str(Fraction(win_ways, win_ways+lose_ways)), (win_ways+lose_ways)//win_ways])
