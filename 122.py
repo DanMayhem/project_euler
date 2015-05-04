@@ -26,21 +26,22 @@ We shall define m(k) to be the minimum number of multiplications to compute nk; 
 For 1 ≤ k ≤ 200, find ∑ m(k).
 """
 
-from functools import lru_cache
+limit = 200
+cost = [999999999 for i in range(limit+1)]
+path = [0 for i in range(limit+1)]
+result = 0
 
-@lru_cache(maxsize=None)
-def m(k):
-	if k == 1:
-		return 0
-	mm = k
-	for i in range(1,k):
-		if 2*i ==k:
-			mmm = m(i) + 1
-		else:
-			mmm = m(i) + m(k-i) + 1
-		if mmm < mm:
-			print([k, i, k-i])
-			mm = mmm
-	return mm
+def recurse(power, depth):
+	if power > limit or depth > cost[power]:
+		return
+	cost[power] = depth
+	path[depth] = power
+	for i in range(depth, -1, -1):
+		recurse(power+path[i], depth+1)
 
-print(m(15))
+recurse(1,0)
+
+for i in range(limit):
+	result += cost[i+1]
+
+print(result)
