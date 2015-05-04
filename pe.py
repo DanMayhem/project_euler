@@ -11,7 +11,7 @@ from itertools import combinations
 
 #misc
 def product(l):
-	return reduce(mul, l)
+	return reduce(mul, l, initializer=1)
 
 
 #combinatorics
@@ -73,6 +73,10 @@ def is_prime(n):
 			return False
 	return True
 
+def rad(n):
+	if n == 1:
+		return 1
+	return product(set(prime_factors(n)))
 
 #fibonacci
 def fib(max=None):
