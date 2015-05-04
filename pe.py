@@ -11,7 +11,7 @@ from itertools import combinations
 
 #misc
 def product(l):
-	return reduce(mul, l, initializer=1)
+	return reduce(mul, l, 1)
 
 
 #combinatorics
