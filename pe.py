@@ -116,3 +116,7 @@ def is_special_set(a):
 					if not(is_special_pair(b, c)):
 						return False
 	return True
+
+#palindromes
+def is_palindrome(i):
+	return i == int(str(i)[::-1])
